@@ -117,64 +117,7 @@ Estas mejoras podrían hacer que la pequeña estación meteorológica sea aún m
 
 ### *Planificacion y distribucion de tareas:
 
-Fase de Planificación:
-
-Definición de Objetivos:
-
-Identificar los objetivos educativos y de aprendizaje del proyecto.
-Establecer cómo la estación se relaciona con el plan de estudios.
-Investigación Preliminar:
-
-Investigar conceptos básicos sobre estaciones meteorológicas y los parámetros climáticos a medir.
-Entender la tecnología y los sensores involucrados.
-Establecimiento de Requisitos:
-
-Definir los parámetros climáticos específicos a medir.
-Determinar el nivel de detalle y complejidad adecuado para un proyecto universitario.
-Fase de Diseño y Desarrollo:
-
-Diseño del Prototipo:
-
-Diseñar un prototipo funcional de la estación con una disposición simple de sensores.
-Planificar una interfaz de usuario básica.
-Selección de Componentes:
-
-Elegir sensores y componentes de bajo costo y fácil disponibilidad.
-Seleccionar un microcontrolador adecuado para el nivel de complejidad del proyecto.
-Desarrollo de Software:
-
-Programar el microcontrolador para adquirir datos de los sensores y mostrarlos en una pantalla simple.
-Crear una interfaz de usuario básica utilizando el microcontrolador.
-Fase de Construcción y Pruebas:
-
-Montaje del Prototipo:
-
-Ensamblar físicamente el prototipo utilizando componentes básicos y económicos.
-Pruebas del Prototipo:
-
-Realizar pruebas para verificar que los sensores funcionan correctamente y que los datos se muestran adecuadamente en la interfaz.
-Fase de Documentación y Presentación:
-
-Creación de Informes:
-
-Elaborar informes técnicos que documenten el proceso de diseño, selección de componentes y desarrollo de software.
-Preparación de Presentación:
-
-Crear presentaciones visuales para explicar el proyecto a compañeros de clase y profesores.
-Fase de Presentación y Evaluación:
-
-Presentación en Clase:
-Presentar el proyecto a los profesores y compañeros de clase.
-Explicar el diseño, el proceso de desarrollo y las características del prototipo.
-Fase de Retroalimentación y Mejora:
-
-Recopilación de Comentarios:
-
-Recibir retroalimentación de profesores y compañeros.
-Anotar sugerencias y recomendaciones para futuras mejoras.
-Evaluación de Aprendizaje:
-
-Reflexionar sobre lo aprendido durante el proyecto y cómo podría aplicarse en futuros proyectos o en la carrera profesional.
+![Diagrama de bloques](imagenes/Diagrama de Gantt básico.png)
 
 
 ---
