@@ -117,7 +117,7 @@ Estas mejoras podrían hacer que la pequeña estación meteorológica sea aún m
 
 ### *Planificacion y distribucion de tareas:
 
-![Diagrama de bloques](imagenes/Diagrama-de-Gantt-básico.png)
+![Diagrama de bloques](imagenes/Diagrama de Gantt básico.png)
 
 
 ---
