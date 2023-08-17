@@ -61,7 +61,6 @@ En resumen, una pequeña estación meteorológica puede solucionar problemática
     - Sensores adicionales
     - Comunicación mejorada
     - Integración con sistemas de automatización
-    - Capacidad de expansión modular
 
     - Interfaz de usuario avanzada
 
@@ -111,7 +110,20 @@ Estas mejoras podrían hacer que la pequeña estación meteorológica sea aún m
 
 ### *Analisis de gastos:
 
+<div align="center">
 
+ Cant |                       Item                      | Precio
+:----:|-------------------------------------------------|---------
+ 1    |          ESP32 - Wi-Fi & Bluetooth MCU          |  10 U$D
+ 2 a 6|      Sensor Efecto Hall A3144                   | 1.5 U$D
+ 1    |        Sensor Intensidad Luz Ultravioleta       | 6.5 U$D
+ 1    |   Sensor Digital De Humedad Temperatura Htu21d  | 3.5 U$D
+ 1    |        Sensor Presion Temperatura Bmp280        |   3 U$D
+ 1    |           Conversor De Nivel 5v 3.3v 8ch        | 2.5 U$D
+ 1    |                  Bateria                        |
+ 1    |       Modulo de carga                           |
+Total |                                                 | (PRECIO TOTAL)
+</div>
 
 ---
 
