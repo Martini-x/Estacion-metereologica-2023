@@ -106,7 +106,7 @@ Estas mejoras podrían hacer que la pequeña estación meteorológica sea aún m
 ---
 
 ### *Diagrama de bloques:
-
+![Diagrama de bloques](images/Diagrama-en-blanco.png)
 ---
 
 ### *Analisis de gastos:
