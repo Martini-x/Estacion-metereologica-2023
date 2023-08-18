@@ -7,7 +7,7 @@
 - [Descripcion de la problematica](#descripcion-de-la-problematica)
 - [Caracterisiticas del sistema](#caracterisiticas-del-sistema)
 - [Estado del arte / Antecedentes](#estado-del-arte--antecedentes)
- - [Estudio de factibilidad](#estudio-de-factibilidad)
+- [Estudio de factibilidad](#estudio-de-factibilidad)
 - [Diagrama de bloques](#diagrama-de-bloques)
 - [Analisis de gastos](#analisis-de-gastos)
 - [Planificacion y distribucion de tareas](#planificacion-y-distribucion-de-tareas)
