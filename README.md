@@ -121,8 +121,10 @@ Estas mejoras podrían hacer que la pequeña estación meteorológica sea aún m
  1    |        Sensor Presion Temperatura Bmp280        |   3 U$D*
  1    |           Conversor De Nivel 5v 3.3v 8ch        | 2.5 U$D*
  1    |         Sensor Optico Velocidad                 | 1.5 U$D*
- 1    |                  Bateria                        |
- 1    |       Modulo de carga                           |
+ 1    |       Display OLED                              | 7.5 U$D*
+ 1    |                  Bateria                        |  10 U$D*
+ 1    |       Modulo de carga                           | 1.5 U$D*
+ 1    |   Regulador a 5V                                | 
 Total |                                                 | (PRECIO TOTAL)
 </div>
 
