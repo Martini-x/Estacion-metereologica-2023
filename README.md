@@ -1,4 +1,4 @@
-# Anteproyecto: Estacion metereologica
+# Anteproyecto: Estacion metereologica   |    Sanchez|Acosta
 
 ### Indice 
 
