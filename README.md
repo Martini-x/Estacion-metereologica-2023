@@ -90,7 +90,8 @@ Estas mejoras podrían hacer que la pequeña estación meteorológica sea aún m
 ### *Estudio de factibilidad:
 
   Como ya se vio en la investigacion de los antecedentes de la estacion metereologica existen muchas funciones que se pueden aplicar, pero en el proyecto se van a tomar como esenciales la implementacion de los siguientes items:
-
+  
+  -Microcontrolador: Se usara el ESP32 por su buena capacidad de procesamiento, cantidad de perifericos, cantidad de puertos, cantidad de puertos GPIO y mas iportante en este proyecto, comunicacion wifi y bluetooth.
   - Sensores:
     - Temperatura
     - Humedad
@@ -99,13 +100,28 @@ Estas mejoras podrían hacer que la pequeña estación meteorológica sea aún m
     - Velocidad del viento
     - Presion atmosferica
     - Indice UV
+  * Los sensores usados se explican en el diagrama de bloques
   
-- Muestra de Datos mediante display
-
+  - Muestra de Datos mediante display OLED
+  - Muestra de datos mediante aplicacipn y pagina web (WIFI)
 ---
 
 ### *Diagrama de bloques:
 ![Diagrama de bloques](images/Diagrama-en-blanco.png)
+
+- Sensores:
+  - Temperatura y Humedad: Estas dos variables seran medidas por un mismo sensor en tiempo real. (Htu21d)
+  - Precipitacion: Para esta variable se usara un sistema en el cual se ira midiendo la precipitacion de a 2ml, el sistema sera parecido a un "sube y baja", y cada vez que se realice un cambio de movimiento, mediante un iman acoplado a la estructura y a un sensor de efecto hall, se iran contando la cantidad de veces que esto sucede. (A3144)
+  - Radiacion solar: Este sensor medira el nivel de radiacion uv en tiempo real, en base a esta medicion se mostrara, ademas del valor, la escala correspondiente de raciacion. (Guva-s12s)
+  - Direccion del viento: Esta variable sera sensada con una veleta, para saber la posicion de la veleta se probara con sensores de efecto o con una serie de disco B&W pintados con distintas divisiones indicando distintas posiciones, para saber si el disco en cierta posicion es blanco o negro se usaran sensores infrarrojos. (Efecto hall: A3144) (Infrarrojo: Lm393)
+  - Velocidad del viento: Esta variable sera sensada con un anemometro, la velocidad se medira por la cantidad de vueta que se den en un lapso de tiempo, se usara un sensior de efecto hall para saber cuando se dio una vuelta. (A3144)
+  - Presion atmosferica: Este sensor medira la presion atmosferica en tiempo real. (BMP280)
+ 
+- Procesamiento y almacenamiento: Todos los datos recibidos por los sensores seran procesados por el microcontrolador ESP32, y opcionalmente guardados en una unidad de almacenamiento. Estos datos seran mostrador por display y una aplicacion y/o pagina web.
+
+- Entrega de datos: La entrega de datos que saldran, una vez procesados por el microcontrolador, seran mostrados por una pequeña pantalla OLED y por una pagina web o aplicacion, en estas dos ultimas se hara uso de la tecnologia WI-FI del micro para que sea posible la transmision de datos de manera inalambrica.
+
+- Interaccion: Este apartado es opcional, pero se tiene pensado que mediante una botonera, el usuario, viendo en la pantalla OLED, pueda navegar entre menues para poder mas y de manera mas comoda la informacion.
 ---
 
 ### *Analisis de gastos:
