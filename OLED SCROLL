@@ -1,0 +1,40 @@
+import machine
+from machine import I2C
+from sh1106 import SH1106_I2C
+# ------------------------------------------------------------------------
+# Define GPIO pins
+
+i2c = I2C(0, sda=machine.Pin(21), scl=machine.Pin(22), freq=400000)
+# ------------------------------------------------------------------------
+
+oled_width = 128
+oled_height = 64
+oled = SH1106_I2C(oled_width, oled_height, i2c)
+# ----------------------
+screen1_row1 = "ANDREA"
+screen1_row2 = "FIORELA"
+screen1_row3 = "SOFIA"
+# ----------------------
+screen2_row1 = "RENATA"
+screen2_row2 = "MARIANA"
+# ----------------------
+screen1 = [[30, 0 , screen1_row1], [30, 16, screen1_row2], [30, 32, screen1_row3]]
+screen2 = [[30, 0 , screen2_row1], [30, 16, screen2_row2]]
+
+# ------------------------------------------------------------------------
+#Define Functions
+
+def scroll_screen_in_out_v(screen):
+  for i in range (0, (oled_height*2+1), 1):
+    for line in screen:
+      oled.text(line[2], line[0], -oled_height+i+line[1])
+    oled.show()
+    if i!= oled_height:
+        oled.fill(0)
+# ------------------------------------------------------------------------
+while True:
+
+# Continuous verticall scroll
+    scroll_screen_in_out_v(screen1)
+    scroll_screen_in_out_v(screen2)
+    
