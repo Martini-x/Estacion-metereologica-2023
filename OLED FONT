@@ -1,0 +1,39 @@
+# More details can be found in TechToTinker.blogspot.com 
+# George Bantique | tech.to.tinker@gmail.com
+
+from machine import Pin, I2C
+from sh1106 import SH1106_I2C
+import freesans20
+from writer_minimal import Writer
+from machine import RTC 
+from time import sleep_ms
+
+i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000) 
+oled = SH1106_I2C(128, 64, i2c, None, addr=0x3C)
+font_writer = Writer(oled, freesans20)
+
+rtc = RTC() 
+rtc.datetime((2023, 8, 31, 4, 10, 54, 0, 0)) 
+# rtc.datetime((YYYY, MM, DD, WD, HH, MM, SS, MS)) 
+# WD 1 = Monday 
+# WD 7 = Sunday 
+isPoint = True
+
+while True: 
+    t = rtc.datetime() 
+    oled.fill(0) 
+    oled.text('** 1.3 OLED **', 10, 0) 
+    # Display the date
+    font_writer.set_textpos(20, 15)
+    font_writer.printstring('{}-{:02d}-{:02d}' .format(t[0],t[1],t[2]))
+    if isPoint: 
+        colon = ':' 
+    else: 
+        colon = ' '
+    # Display the time
+    font_writer.set_textpos(40, 40)
+    font_writer.printstring('{:02d}{}{:02d}' .format(t[4], colon, t[5]))
+    
+    oled.show() 
+    sleep_ms(500) 
+    isPoint = not isPoint
