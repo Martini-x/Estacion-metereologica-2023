@@ -1,0 +1,51 @@
+import machine
+import time
+
+# Define the analog pin connected to the sensor output
+sensor_pin = machine.Pin(32)  # GPIO 32 is also ADC1_4
+
+# Initialize the ADC
+adc = machine.ADC(sensor_pin)
+
+# Function to read UV intensity
+def read_uv_intensity():
+    uv_values = []
+    for _ in range(10):  # Take 10 readings and average them
+        uv_values.append(adc.read())
+        time.sleep_ms(10)  # Wait for 10 milliseconds between readings
+    return sum(uv_values) / len(uv_values)  # Return the average
+
+while True:
+    uv_value = read_uv_intensity()
+    voltage = uv_value/4095*3.3
+    voltage_mV= voltage*1000
+    print("UV Intensity:", uv_value)
+    print("V:", voltage)
+    time.sleep(1)  # Sleep for 1 second before the next reading
+    
+    if(voltage_mV<50):
+        print("UV_SCALE: 0")
+    elif(voltage_mV>=50 and voltage_mV<227):
+        print("UV_SCALE: 1")
+    elif(voltage_mV>=227 and voltage_mV<318):
+        print("UV_SCALE: 2")
+    elif(voltage_mV>=318 and voltage_mV<408):
+        print("UV_SCALE: 3")
+    elif(voltage_mV>=408 and voltage_mV<503):
+        print("UV_SCALE: 4")
+    elif(voltage_mV>=503 and voltage_mV<606):
+        print("UV_SCALE: 5")
+    elif(voltage_mV>=606 and voltage_mV<696):
+        print("UV_SCALE: 6")
+    elif(voltage_mV>=696 and voltage_mV<795):
+        print("UV_SCALE: 7")
+    elif(voltage_mV>=795 and voltage_mV<881):
+        print("UV_SCALE: 8")
+    elif(voltage_mV>=881 and voltage_mV<976):
+        print("UV_SCALE: 9")
+    elif(voltage_mV>=976 and voltage_mV<1079):
+        print("UV_SCALE: 10")
+    elif(voltage_mV>=1079):
+        print("UV_SCALE: 11")
+
+
