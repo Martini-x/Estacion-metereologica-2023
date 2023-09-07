@@ -4,7 +4,7 @@ from sh1106 import SH1106_I2C
 # ------------------------------------------------------------------------
 # Define GPIO pins
 
-i2c = I2C(0, sda=machine.Pin(21), scl=machine.Pin(22), freq=400000)
+i2c = I2C(0, sda=machine.Pin(22), scl=machine.Pin(23), freq=400000)
 # ------------------------------------------------------------------------
 
 oled_width = 128
