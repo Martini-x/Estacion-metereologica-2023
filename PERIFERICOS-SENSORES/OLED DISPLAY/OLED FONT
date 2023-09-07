@@ -8,7 +8,7 @@ from writer_minimal import Writer
 from machine import RTC 
 from time import sleep_ms
 
-i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000) 
+i2c = I2C(scl=Pin(23), sda=Pin(22), freq=400000) 
 oled = SH1106_I2C(128, 64, i2c, None, addr=0x3C)
 font_writer = Writer(oled, freesans20)
 
