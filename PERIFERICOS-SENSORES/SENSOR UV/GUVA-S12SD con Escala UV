@@ -2,7 +2,7 @@ import machine
 import time
 
 # Define the analog pin connected to the sensor output
-sensor_pin = machine.Pin(32)  # GPIO 32 is also ADC1_4
+sensor_pin = machine.Pin(36)  # GPIO 32 is also ADC1_4
 
 # Initialize the ADC
 adc = machine.ADC(sensor_pin)
