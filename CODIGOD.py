@@ -2,7 +2,8 @@ from machine import Pin, I2C
 from sh1106 import SH1106_I2C
 import ahtx0
 import BME280
-
+import machine
+import time
 
 # Configura el bus I2C
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)  # Configura el bus I2C en los mismos pines para ambos dispositivos.
@@ -26,6 +27,32 @@ def read_uv_intensity():
         time.sleep_ms(10)  # Wait for 10 milliseconds between readings
     return sum(uv_values) / len(uv_values)  # Return the average
 
+def Escala_UV(voltage_mV):
+    if(voltage_mV<50):
+        Escala = 0
+    elif(voltage_mV>=50 and voltage_mV<227):
+        Escala = 1
+    elif(voltage_mV>=227 and voltage_mV<318):
+        Escala = 2
+    elif(voltage_mV>=318 and voltage_mV<408):
+        Escala = 3
+    elif(voltage_mV>=408 and voltage_mV<503):
+        Escala = 4
+    elif(voltage_mV>=503 and voltage_mV<606):
+        Escala = 5
+    elif(voltage_mV>=606 and voltage_mV<696):
+        Escala = 6
+    elif(voltage_mV>=696 and voltage_mV<795):
+        Escala = 7
+    elif(voltage_mV>=795 and voltage_mV<881):
+        Escala = 8
+    elif(voltage_mV>=881 and voltage_mV<976):
+        Escala = 9
+    elif(voltage_mV>=976 and voltage_mV<1079):
+        Escala = 10
+    elif(voltage_mV>=1079):
+        Escala = 11
+    return Escala
 
 while True:
     uv_value = read_uv_intensity()
@@ -54,8 +81,10 @@ while True:
     oled.text(mensaje_h, 0, 20)
     mensaje_p = "Pres: {:.6s} hPa".format(bme.pressure)
     oled.text(mensaje_p, 0, 30)
-    mensaje_UV = "UV: {:.6s} ".format(uv_value)
+    mensaje_UV = "UV: {:.0f} ".format(uv_value)
     oled.text(mensaje_UV, 0, 40)
+    mensaje_Escala_UV = "Escala UV: {:.0f} ".format(Escala_UV(voltage_mV))
+    oled.text(mensaje_Escala_UV, 0, 50)
     # Actualiza el display
     oled.show()
 
