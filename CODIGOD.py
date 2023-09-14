@@ -54,6 +54,8 @@ def Escala_UV(voltage_mV):
         Escala = 11
     return Escala
 
+
+    
 while True:
     uv_value = read_uv_intensity()
     voltage = uv_value/4095*3.3
@@ -72,19 +74,18 @@ while True:
     # Borra el contenido anterior del display
     oled.fill(0)
     
+
     # Muestra los datos del sensor en el display OLED
-    mensaje_t = "Temp1: {:.2f} C".format(sensor.temperature)
+    mensaje_t = "Temp: {:.2f} C".format(sensor.temperature)
     oled.text(mensaje_t, 0, 0)
-    mensaje_t2 = "Temp2: {:.5s} C".format(bme.temperature)
-    oled.text(mensaje_t2, 0, 10)
-    mensaje_h = "Humidity: {:.1f} %".format(sensor.relative_humidity)
-    oled.text(mensaje_h, 0, 20)
+    mensaje_h = "Humidity: {:.2f} %".format(sensor.relative_humidity)
+    oled.text(mensaje_h, 0, 10)
     mensaje_p = "Pres: {:.6s} hPa".format(bme.pressure)
-    oled.text(mensaje_p, 0, 30)
+    oled.text(mensaje_p, 0, 20)
     mensaje_UV = "UV: {:.0f} ".format(uv_value)
-    oled.text(mensaje_UV, 0, 40)
+    oled.text(mensaje_UV, 0, 30)
     mensaje_Escala_UV = "Escala UV: {:.0f} ".format(Escala_UV(voltage_mV))
-    oled.text(mensaje_Escala_UV, 0, 50)
+    oled.text(mensaje_Escala_UV, 0, 40)
     # Actualiza el display
     oled.show()
 
