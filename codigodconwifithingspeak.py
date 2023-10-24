@@ -6,8 +6,8 @@ import BME280
 import machine
 import time
 
-ssid = 'Sexofono'
-password = '1234567891011'
+ssid = ''
+password = ''
 url = "https://api.thingspeak.com/update?api_key=06BZMYMBYQIQ02XG"
 
 red = network.WLAN(network.STA_IF)
@@ -22,7 +22,7 @@ print('Conexión correcta')
 print(red.ifconfig())
 
 ultima_peticion = 0
-intervalo_peticiones = 3
+intervalo_peticiones = 15
 
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)  # Configura el bus I2C en los mismos pines para ambos dispositivos.
 # Define the analog pin connected to the sensor output
