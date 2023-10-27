@@ -3,7 +3,7 @@ import utime
 import math
 
 # Configura el pin del sensor de efecto Hall
-hall_sensor_pin = Pin(12, Pin.IN)
+hall_sensor_pin = Pin(14, Pin.IN)
 
 # Inicializa variables
 last_time = None  # Inicializa la variable para el primer toque
@@ -23,7 +23,7 @@ def button_handler(pin):
     last_time = current_time  # Actualiza la marca de tiempo
 
 try:
-    button_pin = Pin(12, Pin.IN)  # Assuming you have a button connected to Pin 0
+    button_pin = Pin(14, Pin.IN)  # Assuming you have a button connected to Pin 0
     button_pin.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
 
     while True:
