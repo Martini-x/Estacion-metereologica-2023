@@ -25,30 +25,9 @@ print(red.ifconfig())
 ultima_peticion = 0
 intervalo_peticiones = 1
 
-mmPerPulse = 0.173
-mmTotal = 0
-
-# Función de manejo de interrupción
-def handle_interrupt(pin):
-    global mmTotal
-    mmTotal += mmPerPulse
-    return mmtotal
-    
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)  # Configura el bus I2C en los mismos pines para ambos dispositivos.
 
-# Define the analog pin connected to the sensor output
-sensor_norte = machine.Pin(25, machine.Pin.IN)
-sensor_sur = machine.Pin(26, machine.Pin.IN)
-sensor_este = machine.Pin(27, machine.Pin.IN)
-sensor_oeste = machine.Pin(14, machine.Pin.IN)
 
-sensor = machine.Pin(33, machine.Pin.IN)
-
-# Configurar la interrupción en el flanco de subida del pin
-sensor.irq(trigger=machine.Pin.IRQ_RISING | machine.Pin.IRQ_FALLING, handler=handle_interrupt)
-
-
-hall_sensor_pin = Pin(12, Pin.IN)
 
 sensor_pin = machine.Pin(36) 
 # Initialize the ADC
@@ -60,8 +39,20 @@ oled = SH1106_I2C(128, 64, i2c)
 sensor_address = 0x38
 oled_address=0x3C
 BME280_I2CADDR = 0x76
+
+hall_sensor_pin = Pin(14, Pin.IN)
 last_time = None
 
+def button_handler(pin):
+    global last_time
+    current_time = utime.ticks_ms()  # Registra la marca de tiempo actual
+    if last_time is not None:
+        interval = (current_time - last_time) / 1000  # Calcula el intervalo entre toques
+        velocidad_angular_rad_s = 2 * math.pi / interval
+        velocidad_km = (0.023 * velocidad_angular_rad_s) * 3.6
+        last_time = current_time  # Actualiza la marca de tiempo
+    return velocidad_km
+    
 def read_uv_intensity():
     uv_values = []
     for _ in range(10):  # Take 10 readings and average them
@@ -101,20 +92,6 @@ def reconectar():
     time.sleep(10)
     machine.reset()
 
-def button_handler(pin):
-    global last_time
-    current_time = utime.ticks_ms()  # Registra la marca de tiempo actual
-    if last_time is not None:
-        interval = (current_time - last_time) / 1000  # Calcula el intervalo entre toques
-
-        # Calcula la velocidad angular en radianes por segundo
-        velocidad_angular_rad_s = 2 * math.pi / interval
-        velocidad_km = (0.023 * velocidad_angular_rad_s) * 3.6
-
-    last_time = current_time  # Actualiza la marca de tiempo
-    return velocidad_km
-
-    
 while True:
     uv_value = read_uv_intensity()
     voltage = uv_value/4095*3.3
@@ -145,10 +122,9 @@ while True:
     oled.text(mensaje_UV, 0, 30)
     mensaje_Escala_UV = "Escala UV: {:.0f} ".format(Escala_UV(voltage_mV))
     oled.text(mensaje_Escala_UV, 0, 40)
-    mensaje_vel = "Velocidad: {:.0f}".format(velocidad_km)
-    oled.text(mensaje_Escala_UV, 0, 50)
-    mensaje_vel = "Ve: {:.0f}".format(velocidad_km)
-    oled.text(mensaje_Escala_UV, 0, 50)
+    mensaje_vel = "Velocidad: {:.0f} km".format(button_handler(pin))
+    oled.text(mensaje_vel, 0, 50)
+
     # Actualiza el display
     oled.show()
     try:
@@ -160,13 +136,12 @@ while True:
     except OSError as e:
         reconectar()
     try:
-    button_pin = Pin(12, Pin.IN)  # Assuming you have a button connected to Pin 0
-    button_pin.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
+        button_pin = Pin(14, Pin.IN)  # Assuming you have a button connected to Pin 0
+        button_pin.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
 
-    while True:
-        utime.sleep(1)  # Espera 1 segundo
+
 
     except KeyboardInterrupt:
-    button_pin.irq(handler=None)  # Detiene la interrupción al salir del programa
-    print("Programa detenido")
+        button_pin.irq(handler=None)  # Detiene la interrupción al salir del programa
+        print("Programa detenido")
         
