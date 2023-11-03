@@ -4,9 +4,10 @@ from sh1106 import SH1106_I2C
 import ahtx0
 import BME280
 import machine
-import time
+import utime
+import math
 
-ssid = ''
+ssid = 'BA Escuela'
 password = ''
 url = "https://api.thingspeak.com/update?api_key=06BZMYMBYQIQ02XG"
 
@@ -22,10 +23,11 @@ print('Conexión correcta')
 print(red.ifconfig())
 
 ultima_peticion = 0
-intervalo_peticiones = 15
+intervalo_peticiones = 1
 
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)  # Configura el bus I2C en los mismos pines para ambos dispositivos.
-# Define the analog pin connected to the sensor output
+
+
 
 sensor_pin = machine.Pin(36) 
 # Initialize the ADC
@@ -38,6 +40,23 @@ sensor_address = 0x38
 oled_address=0x3C
 BME280_I2CADDR = 0x76
 
+hall_sensor_pin = Pin(14, Pin.IN)
+last_time = None
+
+def button_handler(pin):
+    global last_time
+    current_time = utime.ticks_ms()  # Registra la marca de tiempo actual
+    if last_time is not None:
+        interval = (current_time - last_time) / 1000  # Calcula el intervalo entre toques
+        velocidad_angular_rad_s = 2 * math.pi / interval
+        velocidad_km = (0.023 * velocidad_angular_rad_s) * 3.6
+        mensaje_vel = "Vel: {:.2f} km".format(velocidad_km)
+        oled.text(mensaje_vel, 0, 50)
+        oled.show()
+    last_time = current_time  # Actualiza la marca de tiempo
+    oled.fill_rect(0, 50, 128, 10, 0)
+    oled.show()
+    
 def read_uv_intensity():
     uv_values = []
     for _ in range(10):  # Take 10 readings and average them
@@ -99,7 +118,7 @@ while True:
     # Muestra los datos del sensor en el display OLED
     mensaje_t = "Temp: {:.2f} C".format(sensor.temperature)
     oled.text(mensaje_t, 0, 0)
-    mensaje_h = "Humidity: {:.2f} %".format(sensor.relative_humidity)
+    mensaje_h = "Humidity: {:.1f} %".format(sensor.relative_humidity)
     oled.text(mensaje_h, 0, 10)
     mensaje_p = "Pres: {:.6s} hPa".format(bme.pressure)
     oled.text(mensaje_p, 0, 20)
@@ -107,6 +126,8 @@ while True:
     oled.text(mensaje_UV, 0, 30)
     mensaje_Escala_UV = "Escala UV: {:.0f} ".format(Escala_UV(voltage_mV))
     oled.text(mensaje_Escala_UV, 0, 40)
+    
+
     # Actualiza el display
     oled.show()
     try:
@@ -117,4 +138,11 @@ while True:
             ultima_peticion = time.time()
     except OSError as e:
         reconectar()
+    try:
+        button_pin = Pin(14, Pin.IN)  # Assuming you have a button connected to Pin 0
+        button_pin.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
+
+    except KeyboardInterrupt:
+        button_pin.irq(handler=None)  # Detiene la interrupción al salir del programa
+        print("Programa detenido")
         
