@@ -29,18 +29,15 @@ i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)  # Configura el bus I2C en los 
 
 
 
-sensor_pin = machine.Pin(36) 
 # Initialize the ADC
 adc = machine.ADC(sensor_pin)
-# Configura el display OLED
-oled = SH1106_I2C(128, 64, i2c)
 
 # Direcciones I2C de los dispositivos
 sensor_address = 0x38
 oled_address=0x3C
 BME280_I2CADDR = 0x76
-
 hall_sensor_pin = Pin(14, Pin.IN)
+sensor_pin = machine.Pin(36) 
 last_time = None
 
 def button_handler(pin):
@@ -104,7 +101,7 @@ while True:
     data_received_sensor = bytearray(4)
     data_received_bme = bytearray(4)
     # Configura la dirección I2C para el sensor
-
+    oled = SH1106_I2C(128, 64, i2c, None, oled_address)
     i2c.readfrom_into(sensor_address, data_received_sensor)
     i2c.readfrom_into(BME280_I2CADDR, data_received_bme)
     # Procesa los datos recibidos según la hoja de datos del sensor
@@ -131,6 +128,8 @@ while True:
     # Actualiza el display
     oled.show()
     try:
+        button_pin = Pin(14, Pin.IN)  
+        button_pin.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
         if (time.time() - ultima_peticion) > intervalo_peticiones:
             respuesta = urequests.get(url + "&field1=" + str(sensor.temperature) + "&field2=" + str(sensor.relative_humidity) + "&field3=" + str(bme.pressure) + "&field4=" + str(uv_value) + "&field5=" + str(Escala_UV(voltage_mV)))
             print ("Respuesta: " + str(respuesta.status_code))
@@ -138,11 +137,5 @@ while True:
             ultima_peticion = time.time()
     except OSError as e:
         reconectar()
-    try:
-        button_pin = Pin(14, Pin.IN)  # Assuming you have a button connected to Pin 0
-        button_pin.irq(trigger=Pin.IRQ_FALLING, handler=button_handler)
 
-    except KeyboardInterrupt:
-        button_pin.irq(handler=None)  # Detiene la interrupción al salir del programa
-        print("Programa detenido")
         
