@@ -11,7 +11,7 @@ def handle_interrupt(pin):
     print(mmTotal, "mm")
 
 # Configurar el pin del sensor como entrada para la interrupción
-sensor = machine.Pin(14, machine.Pin.IN)
+sensor = machine.Pin(12, machine.Pin.IN)
 
 # Configurar la interrupción en el flanco de subida del pin
 sensor.irq(trigger=machine.Pin.IRQ_RISING | machine.Pin.IRQ_FALLING, handler=handle_interrupt)
