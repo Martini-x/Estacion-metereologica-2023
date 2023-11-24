@@ -1,11 +1,6 @@
-import machine, network, time, urequests
+import machine, network, time, urequests, ahtx0, BME280, utime, math
 from machine import Pin, I2C
 from sh1106 import SH1106_I2C
-import ahtx0
-import BME280
-import machine
-import utime
-import math
 
 ssid = 'BA Escuela'
 password = ''
@@ -28,16 +23,14 @@ intervalo_peticiones = 1
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)  # Configura el bus I2C en los mismos pines para ambos dispositivos.
 
 
-
+sensor_pin = machine.Pin(36) 
 # Initialize the ADC
 adc = machine.ADC(sensor_pin)
-
 # Direcciones I2C de los dispositivos
 sensor_address = 0x38
 oled_address=0x3C
 BME280_I2CADDR = 0x76
 hall_sensor_pin = Pin(14, Pin.IN)
-sensor_pin = machine.Pin(36) 
 last_time = None
 
 def button_handler(pin):
