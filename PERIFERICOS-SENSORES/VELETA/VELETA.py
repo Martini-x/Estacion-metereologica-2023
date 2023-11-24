@@ -4,7 +4,7 @@ import utime
 sensor_norte = machine.Pin(25, machine.Pin.IN)
 sensor_sur = machine.Pin(26, machine.Pin.IN)
 sensor_este = machine.Pin(27, machine.Pin.IN)
-sensor_oeste = machine.Pin(14, machine.Pin.IN)
+sensor_oeste = machine.Pin(13, machine.Pin.IN)
 
 while True:
     norte = sensor_norte.value()
